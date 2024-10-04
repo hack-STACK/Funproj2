@@ -14,30 +14,15 @@
         </div>
         <button class="fun-button" onclick="window.location.href='index.html'">Kembali ke Awal</button>
     </div>
+
+    <!-- Countdown and GIF -->
+    <div id="countdown" class="countdown"></div>
+    <img id="cuteGif" src="cute.gif" alt="Cute GIF" class="hidden-gif">
+
+    <!-- Audio element for sound effect -->
+    <audio id="dateSound" src="sound1.mp4" preload="auto"></audio>
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const name = localStorage.getItem('name');
-            const date = localStorage.getItem('date');
-            const spot = localStorage.getItem('spot');
-            const excitement = localStorage.getItem('excitement');
-
-            const dateMessage = `
-                <strong>Hai ${name}!</strong><br>
-                Kita akan bertemu pada <strong>${date}</strong> di <strong>${spot}</strong>.<br>
-                Tingkat excitement kamu adalah <strong>${excitement}</strong> dari 100!<br>
-                Tidak sabar untuk bertemu denganmu! 😊
-            `;
-
-            document.getElementById('dateMessage').innerHTML = dateMessage;
-
-            // Confetti effect
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

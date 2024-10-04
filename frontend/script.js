@@ -1,5 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Handle initial form
+    // Initialize forms
+    initFormHandlers();
+
+    // Display date message and start confetti
+    displayDateMessage();
+    startConfetti();
+
+    // Show GIF immediately after confetti
+    setTimeout(showGif, 3000); // Wait 3 seconds after confetti
+});
+
+function initFormHandlers() {
+    handleInitialForm();
+    handleNameForm();
+    handleDateForm();
+    handleSpotForm();
+    handleExcitementForm();
+    enableCustomSpotInput();
+}
+
+function handleInitialForm() {
     const initialForm = document.getElementById('initialForm');
     if (initialForm) {
         initialForm.addEventListener('submit', function(event) {
@@ -8,18 +28,23 @@ document.addEventListener('DOMContentLoaded', function() {
             if (answer && answer.value === 'yes') {
                 window.location.href = 'name.html';
             } else {
-                const yesButton = document.querySelector('input[value="yes"]').parentElement;
-                yesButton.style.transform = 'scale(1.2)';
-                yesButton.style.transition = 'transform 0.3s';
-                setTimeout(() => {
-                    yesButton.style.transform = 'scale(1)';
-                    alert('Terima kasih, mungkin lain kali!');
-                }, 300);
+                enlargeYesButton();
             }
         });
     }
+}
 
-    // Handle name form
+let yesButtonScale = 1;
+
+function enlargeYesButton() {
+    const yesButton = document.querySelector('input[value="yes"]').parentElement;
+    yesButtonScale += 0.2; // Increase the scale factor
+    yesButton.style.transform = `scale(${yesButtonScale})`;
+    yesButton.style.transition = 'transform 0.3s';
+    alert('Ayo, pencet "Yes" dong! 😄');
+}
+
+function handleNameForm() {
     const nameForm = document.getElementById('nameForm');
     if (nameForm) {
         nameForm.addEventListener('submit', function(event) {
@@ -33,8 +58,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+}
 
-    // Handle date form
+function handleDateForm() {
     const dateForm = document.getElementById('dateForm');
     if (dateForm) {
         dateForm.addEventListener('submit', function(event) {
@@ -48,8 +74,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+}
 
-    // Handle spot form
+function handleSpotForm() {
     const spotForm = document.getElementById('spotForm');
     if (spotForm) {
         spotForm.addEventListener('submit', function(event) {
@@ -77,8 +104,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+}
 
-    // Handle excitement form and send data to server
+function handleExcitementForm() {
     const excitementForm = document.getElementById('excitementForm');
     if (excitementForm) {
         excitementForm.addEventListener('submit', function(event) {
@@ -99,33 +127,37 @@ document.addEventListener('DOMContentLoaded', function() {
                     excitement: excitement
                 };
 
-                fetch('https://dateserver.vercel.app/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        
-                        window.location.href = 'thankyou.html';
-                    } else {
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Terjadi kesalahan saat mengirim data.');
-                });
+                sendDataToServer(data);
             } else {
                 alert('Berapa tingkat excitement kamu?');
             }
         });
     }
+}
 
-    // Enable custom spot input
+function sendDataToServer(data) {
+    fetch('https://dateserver.vercel.app/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json ())
+    .then(data => {
+        if (data.success) {
+            window.location.href = 'thankyou.html';
+        } else {
+            alert('Terjadi kesalahan saat mengirim data.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat mengirim data.');
+    });
+}
+
+function enableCustomSpotInput() {
     const customSpotRadio = document.getElementById('customSpotRadio');
     if (customSpotRadio) {
         customSpotRadio.addEventListener('change', function() {
@@ -145,4 +177,38 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
+}
+
+function displayDateMessage() {
+    const name = localStorage.getItem('name');
+    const date = localStorage.getItem('date');
+    const spot = localStorage.getItem('spot');
+    const excitement = localStorage.getItem('excitement');
+
+    const dateMessage = `
+        <strong>Hai ${name}!</strong><br>
+        Kita akan bertemu pada <strong>${date}</strong> di <strong>${spot}</strong>.<br>
+        Tingkat excitement kamu adalah <strong>${excitement}</strong> dari 100!<br>
+        Tidak sabar untuk bertemu denganmu! 😊
+    `;
+
+    document.getElementById('dateMessage').innerHTML = dateMessage;
+
+    const dateSound = document.getElementById('dateSound');
+    dateSound.play();
+}
+
+function startConfetti() {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+}
+
+function showGif() {
+    const gif = document.getElementById('cuteGif');
+    gif.style.display = 'block';
+    // Add a simple animation effect when the GIF appears
+    gif.classList.add('animate-gif');
+}

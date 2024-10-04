@@ -49,7 +49,7 @@ function handleNameForm() {
     if (nameForm) {
         nameForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            const name = document.getElementById('name').value;
+            const name = document.getElementById('name').value.trim();
             if (name) {
                 localStorage.setItem('name', name);
                 window.location.href = 'date.html';
@@ -83,14 +83,17 @@ function handleSpotForm() {
             event.preventDefault();
             const selectedSpot = document.querySelector('input[name="spot"]:checked');
             let spotValue = '';
+            let imageUrl = '';
 
             if (selectedSpot) {
                 if (selectedSpot.value === 'custom') {
-                    const customSpot = document.getElementById('customSpot').value;
-                    if (customSpot.trim() !== '') {
+                    const customSpot = document.getElementById('customSpot').value.trim();
+                    const customSpotImageURL = document.getElementById('customSpotImageURL').value.trim();
+                    if (customSpot !== '' && customSpotImageURL !== '') {
                         spotValue = customSpot;
+                        imageUrl = customSpotImageURL;
                     } else {
-                        alert('Silakan masukkan spot yang kamu inginkan!');
+                        alert('Silakan masukkan spot dan URL gambar yang kamu inginkan!');
                         return;
                     }
                 } else {
@@ -98,6 +101,7 @@ function handleSpotForm() {
                 }
 
                 localStorage.setItem('spot', spotValue);
+                localStorage.setItem('imageUrl', imageUrl);
                 window.location.href = 'excitement.html';
             } else {
                 alert('Pilih spot yang kamu suka!');
@@ -119,11 +123,13 @@ function handleExcitementForm() {
                 const name = localStorage.getItem('name');
                 const date = localStorage.getItem('date');
                 const spot = localStorage.getItem('spot');
+                const imageUrl = localStorage.getItem('imageUrl');
 
                 const data = {
                     name: name,
                     date: date,
                     spot: spot,
+                    imageUrl: imageUrl,
                     excitement: excitement
                 };
 
@@ -143,7 +149,7 @@ function sendDataToServer(data) {
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.json ())
+    .then(response => response.json())
     .then(data => {
         if (data.success) {
             window.location.href = 'thankyou.html';
@@ -161,8 +167,10 @@ function enableCustomSpotInput() {
     const customSpotRadio = document.getElementById('customSpotRadio');
     if (customSpotRadio) {
         customSpotRadio.addEventListener('change', function() {
-            const customSpotInput = document.getElementById('customSpot ');
+            const customSpotInput = document.getElementById('customSpot');
+            const customSpotImageURLInput = document.getElementById('customSpotImageURL');
             customSpotInput.disabled = !this.checked;
+            customSpotImageURLInput.disabled = !this.checked;
             if (this.checked) {
                 customSpotInput.focus();
             }
@@ -174,6 +182,7 @@ function enableCustomSpotInput() {
         radio.addEventListener('change', function() {
             if (this.value !== 'custom') {
                 document.getElementById('customSpot').disabled = true;
+                document.getElementById('customSpotImageURL').disabled = true;
             }
         });
     });
@@ -183,6 +192,7 @@ function displayDateMessage() {
     const name = localStorage.getItem('name');
     const date = localStorage.getItem('date');
     const spot = localStorage.getItem('spot');
+    const imageUrl = localStorage.getItem('imageUrl');
     const excitement = localStorage.getItem('excitement');
 
     const dateMessage = `
@@ -193,6 +203,12 @@ function displayDateMessage() {
     `;
 
     document.getElementById('dateMessage').innerHTML = dateMessage;
+
+    if (imageUrl) {
+        const imageElement = document.getElementById('customSpotImage');
+        imageElement.src = imageUrl;
+        imageElement.style.display = 'block';
+    }
 
     const dateSound = document.getElementById('dateSound');
     dateSound.play();

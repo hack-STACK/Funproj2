@@ -18,7 +18,7 @@
                 </label>
                 <label class="option">
                     <input type="radio" name="spot" value="makan">
-                    <img src="dinner.jpg" alt="Makan Siang" class="spot-image">
+                    <img src="dinner.jpg" alt="Makan-makan" class="spot-image">
                     <span>Makan Siang</span>
                 </label>
                 <label class="option">
@@ -29,6 +29,8 @@
                 <div class="custom-spot">
                     <input type="radio" name="spot" id="customSpotRadio" value="custom">
                     <input type="text" id="customSpot" placeholder="Masukkan spot lain..." disabled>
+                    <input type="text" id="customSpotImageURL" placeholder="Masukkan URL gambar..." disabled>
+                    <img id="customImagePreview" class="spot-image" style="display:none;" alt="Custom Spot Image">
                 </div>
             </div>
             <button type="submit" class="fun-button">Lanjut</button>
@@ -36,22 +38,38 @@
     </div>
     <script src="script.js"></script>
     <script>
-        // Mengaktifkan input teks ketika opsi "custom" dipilih
+        // Enable the text inputs when the "custom" option is selected
         document.getElementById('customSpotRadio').addEventListener('change', function() {
             const customSpotInput = document.getElementById('customSpot');
+            const customSpotImageURL = document.getElementById('customSpotImageURL');
             customSpotInput.disabled = !this.checked;
+            customSpotImageURL.disabled = !this.checked;
             if (this.checked) {
                 customSpotInput.focus();
             }
         });
 
-        // Menonaktifkan input teks ketika opsi lain dipilih
+        // Disable the text inputs when other options are selected
         document.querySelectorAll('input[name="spot"]').forEach(function(radio) {
             radio.addEventListener('change', function() {
-                if (!this.value === 'custom') {
+                if (this.value !== 'custom') {
                     document.getElementById('customSpot').disabled = true;
+                    document.getElementById('customSpotImageURL').disabled = true;
+                    document.getElementById('customImagePreview').style.display = 'none';
                 }
             });
+        });
+
+        // Display the image from the URL for the custom spot
+        document.getElementById('customSpotImageURL').addEventListener('input', function() {
+            const url = this.value;
+            const customImagePreview = document.getElementById('customImagePreview');
+            if (url) {
+                customImagePreview.src = url;
+                customImagePreview.style.display = 'block';
+            } else {
+                customImagePreview.style.display = 'none';
+            }
         });
     </script>
 </body>

@@ -21,41 +21,67 @@ body, html {
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    max-width: 90%; /* Use percentage for responsiveness */
-    transition: transform 0.3s;
-    margin: 10px; /* Add margin for small screens */
+    max-width: 90%;
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin: 10px;
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .container:hover {
     transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
 h1 {
     margin-bottom: 20px;
     color: #ff6f61;
-    font-size: 1.8em; /* Slightly smaller for mobile */
+    font-size: 1.8em;
     text-shadow: 2px 2px #f8b195;
+    animation: slideIn 1s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 p {
-    font-size: 16px; /* Adjusted for mobile */
+    font-size: 16px;
     margin-bottom: 20px;
     color: #6a0572;
 }
 
 .options {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
     gap: 15px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .option {
     position: relative;
     width: 100%;
+    max-width: 200px;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: bounceIn 1s ease-out;
+}
+
+@keyframes bounceIn {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
 }
 
 .option:hover {
@@ -65,57 +91,32 @@ p {
 
 .spot-image {
     width: 100%;
+    height: auto;
     border-radius: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
 }
 
-input[type="range"] {
-    width: 100%;
-    margin: 20px 0;
-    accent-color: #ff6f61;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    background: #ff6f61;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: background-color 0.3s;
-}
-
-input[type="range"]::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    background: #ff6f61;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: background-color 0.3s;
-}
-
-input[type="range"]::-ms-thumb {
-    width: 25px;
-    height: 25px;
-    background: #ff6f61;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: background-color 0.3s;
+.spot-image:hover {
+    transform: scale(1.05);
 }
 
 .fun-button {
-    background -color: #ff6f61;
+    background-color: #ff6f61;
     border: none;
     color: white;
-    padding: 10px 20px; /* Adjusted for mobile */
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px; /* Adjusted for mobile */
-    margin: 4px 2px;
-    border-radius: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    border-radius: 10px;
+    transition: transform 0.3s, background-color 0.3s;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
 .fun-button:hover {
@@ -124,7 +125,7 @@ input[type="range"]::-ms-thumb {
 }
 
 .date-details {
-    font-size: 16px; /* Adjusted for mobile */
+    font-size: 16px;
     color: #6a0572;
     margin-bottom: 30px;
     line-height: 1.6;
@@ -132,18 +133,18 @@ input[type="range"]::-ms-thumb {
 }
 
 .hidden-gif {
-    display: none; /* Initially hidden */
+    display: none;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 120px; /* Adjust size for mobile */
+    width: 120px;
     border-radius: 10px;
- box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000; /* Ensure it appears above other content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
 }
 
 .countdown {
-    font-size: 20px; /* Adjusted for mobile */
+    font-size: 20px;
     color: #ff6f61;
     text-align: center;
     margin-top: 20px;
@@ -197,10 +198,10 @@ input[type="range"]::-ms-thumb {
 
 @media only screen and (min-width: 1024px) {
     .option {
-        max-width: 200px; /* Limit the maximum width for larger screens */
+        max-width: 200px;
     }
     .spot-image {
-        max-width: 100%; /* Ensure images do not exceed the container width */
-        height: auto; /* Maintain aspect ratio */
+        max-width: 100%;
+        height: auto;
     }
 }

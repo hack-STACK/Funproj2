@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Spot Menarik</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pilih Spot Menarik 🌟</h1>
+        <form id="spotForm">
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="spot" value="nonton">
+                    <img src="movie.jpg" alt="Nonton Film" class="spot-image">
+                    <span>Nonton Film</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="spot" value="makan">
+                    <img src="dinner.jpg" alt="Makan Siang" class="spot-image">
+                    <span>Makan Siang</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="spot" value="jalan-jalan">
+                    <img src="walk.jpg" alt="Jalan-Jalan" class="spot-image">
+                    <span>Jalan-jalan</span>
+                </label>
+                <div class="custom-spot">
+                    <input type="radio" name="spot" id="customSpotRadio" value="custom">
+                    <input type="text" id="customSpot" placeholder="Masukkan spot lain..." disabled>
+                </div>
+            </div>
+            <button type="submit" class="fun-button">Lanjut</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Mengaktifkan input teks ketika opsi "custom" dipilih
+        document.getElementById('customSpotRadio').addEventListener('change', function() {
+            const customSpotInput = document.getElementById('customSpot');
+            customSpotInput.disabled = !this.checked;
+            if (this.checked) {
+                customSpotInput.focus();
+            }
+        });
+
+        // Menonaktifkan input teks ketika opsi lain dipilih
+        document.querySelectorAll('input[name="spot"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                if (!this.value === 'custom') {
+                    document.getElementById('customSpot').disabled = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

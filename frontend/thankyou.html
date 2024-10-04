@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Date</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Detail Date 💖</h1>
+        <div class="date-details">
+            <p id="dateMessage"></p>
+        </div>
+        <button class="fun-button" onclick="window.location.href='index.html'">Kembali ke Awal</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const name = localStorage.getItem('name');
+            const date = localStorage.getItem('date');
+            const spot = localStorage.getItem('spot');
+            const excitement = localStorage.getItem('excitement');
+
+            const dateMessage = `
+                <strong>Hai ${name}!</strong><br>
+                Kita akan bertemu pada <strong>${date}</strong> di <strong>${spot}</strong>.<br>
+                Tingkat excitement kamu adalah <strong>${excitement}</strong> dari 100!<br>
+                Tidak sabar untuk bertemu denganmu! 😊
+            `;
+
+            document.getElementById('dateMessage').innerHTML = dateMessage;
+
+            // Confetti effect
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        });
+    </script>
+</body>
+</html>

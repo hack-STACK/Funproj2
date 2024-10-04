@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seberapa Bersemangat?</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Seberapa Bersemangat? 😃</h1>
+        <form id="excitementForm">
+            <div>
+                <input type="range" id="excitement" name="excitement" min="0" max="100" value="50" oninput="updateValue(this.value)">
+                <span id="excitementValue">50</span>
+            </div>
+            <button type="submit" class="fun-button">Lanjut</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        function updateValue(value) {
+            document.getElementById('excitementValue').textContent = value;
+        }
+    </script>
+</body>
+</html>

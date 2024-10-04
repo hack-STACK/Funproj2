@@ -2,9 +2,9 @@
   "name": "nama-proyek-anda",
   "version": "1.0.0",
   "description": "",
-  "main": "frontend/server.js",
+  "main": "frontend/server/server.js",
   "scripts": {
-    "start": "node frontend/server.js",
+    "start": "node frontend/server/server.js",
     "format": "prettier --write ."
   },
   "dependencies": {

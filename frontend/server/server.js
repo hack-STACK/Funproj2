@@ -51,7 +51,11 @@ app.post("/submit", (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'public', 'index.html'));
+  res.status(200).send('Welcome to the homepage!');
+});
+
+app.get('/home', (req, res) => {
+  res.status(200).json('Welcome, your app is working well');
 });
 
 const PORT = process.env.PORT || 3000;

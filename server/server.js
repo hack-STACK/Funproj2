@@ -7,11 +7,14 @@ const cors = require("cors");
 const path = require("path"); // Add this line
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'frontend')));
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'frontend', 'public')));
 
+// Your other routes and middleware
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/public/index.html'));
+  res.sendFile(path.join(__dirname, 'frontend', 'public', 'index.html'));
 });
+
 
 app.use(bodyParser.json());
 app.use(logger("dev"));

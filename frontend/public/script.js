@@ -1,6 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize forms
     initFormHandlers();
+
+    // Display date message and start confetti
+    displayDateMessage();
+    startConfetti();
+
+    // Show GIF immediately after confetti
+    setTimeout(showGif, 3000); // Wait 3 seconds after confetti
 });
 
 function initFormHandlers() {
@@ -201,12 +208,13 @@ function displayDateMessage() {
         const imageElement = document.getElementById('customSpotImage');
         imageElement.src = imageUrl;
         imageElement.style.display = 'block';
+        const dateSound = document.getElementById('dateSound');
+        dateSound.play();
+        
     }
 
-    // Play sound and start confetti
     const dateSound = document.getElementById('dateSound');
     dateSound.play();
-    startConfetti();
 }
 
 function startConfetti() {

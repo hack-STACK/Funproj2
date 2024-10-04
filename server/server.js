@@ -7,7 +7,7 @@ const cors = require("cors");
 const path = require("path"); // Add this line
 const app = express();
 
-app.use(express.static(__dirname + "/frontend/"));
+app.use(express.static(__dirname + ".."));
 app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(cors());

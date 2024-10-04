@@ -4,17 +4,12 @@ const bodyParser = require("body-parser");
 const twilio = require("twilio");
 const logger = require("morgan");
 const cors = require("cors");
-const path = require("path"); // Add this line
+const path = require("path");
+
 const app = express();
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'frontend', 'public')));
-
-// Your other routes and middleware
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'public', 'index.html'));
-});
-
 
 app.use(bodyParser.json());
 app.use(logger("dev"));
@@ -32,7 +27,6 @@ const client = twilio(accountSid, authToken);
 app.post("/submit", (req, res) => {
   const { name, date, spot, excitement } = req.body;
 
-  // Construct the message from the received data
   const message = `
     Nama: ${name}
     Tanggal: ${date}
@@ -40,12 +34,11 @@ app.post("/submit", (req, res) => {
     Tingkat Excitement: ${excitement}
   `;
 
-  // Send the message using Twilio
   client.messages
     .create({
       body: message,
-      from: "whatsapp:+14155238886", // Your Twilio WhatsApp number
-      to: "whatsapp:+6281234047522", // Your personal WhatsApp number
+      from: "whatsapp:+14155238886",
+      to: "whatsapp:+6281234047522",
     })
     .then((message) => {
       console.log("Message sent: ", message.sid);
@@ -58,11 +51,7 @@ app.post("/submit", (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.status(200).send('Welcome to the homepage!');
-});
-
-app.get('/home', (req, res) => {
-  res.status(200).json('Welcome, your app is working well');
+  res.sendFile(path.join(__dirname, 'frontend', 'public', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;

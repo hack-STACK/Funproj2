@@ -208,6 +208,9 @@ function displayDateMessage() {
         const imageElement = document.getElementById('customSpotImage');
         imageElement.src = imageUrl;
         imageElement.style.display = 'block';
+        const dateSound = document.getElementById('dateSound');
+        dateSound.play();
+        
     }
 
     const dateSound = document.getElementById('dateSound');

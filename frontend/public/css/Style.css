@@ -104,7 +104,7 @@ input[type="range"]::-ms-thumb {
 }
 
 .fun-button {
-    background-color: #ff6f61;
+    background -color: #ff6f61;
     border: none;
     color: white;
     padding: 10px 20px; /* Adjusted for mobile */
@@ -192,5 +192,15 @@ input[type="range"]::-ms-thumb {
     }
     .countdown {
         font-size: 16px;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .option {
+        max-width: 200px; /* Limit the maximum width for larger screens */
+    }
+    .spot-image {
+        max-width: 100%; /* Ensure images do not exceed the container width */
+        height: auto; /* Maintain aspect ratio */
     }
 }

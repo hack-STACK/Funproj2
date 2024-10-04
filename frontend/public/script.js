@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Display date message and start confetti
     displayDateMessage();
     startConfetti();
+    const dateSound = document.getElementById('dateSound');
+    dateSound.play();
 
     // Show GIF immediately after confetti
     setTimeout(showGif, 3000); // Wait 3 seconds after confetti

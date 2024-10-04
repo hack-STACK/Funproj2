@@ -7,7 +7,12 @@ const cors = require("cors");
 const path = require("path"); // Add this line
 const app = express();
 
-app.use(express.static("../frontend/public"));
+app.use(express.static(path.join(__dirname, 'frontend')));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/public/index.html'));
+});
+
 app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(cors());

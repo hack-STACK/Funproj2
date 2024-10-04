@@ -10,7 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(cors());
-app.use(express.static(path.join(__dirname, "../frontend/")));
+app.use(express.static(path.join(__dirname, "../frontend/style.css")));
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;

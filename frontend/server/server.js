@@ -9,7 +9,7 @@ const path = require("path");
 const app = express();
 
 // Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'frontend', 'public')));
+// app.use(express.static(path.join(__dirname, 'frontend', 'public')));
 
 app.use(bodyParser.json());
 app.use(logger("dev"));

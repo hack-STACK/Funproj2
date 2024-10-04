@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     excitement: excitement
                 };
 
-                fetch('http://localhost:3000/submit', {
+                fetch('https://dateserver.vercel.app/submit', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

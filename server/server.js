@@ -4,11 +4,13 @@ const bodyParser = require("body-parser");
 const twilio = require("twilio");
 const logger = require("morgan");
 const cors = require("cors");
-
+const path = require("path"); // Add this line
 const app = express();
+
 app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(cors());
+app.use(express.static(path.join(__dirname, "../frontend")));
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
